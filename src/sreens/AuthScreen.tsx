@@ -8,7 +8,7 @@ interface AuthScreenProps {
 export default class AuthScreen extends React.Component<AuthScreenProps> {
 
   onGoToListPressed = () => {
-    this.props.navigation.navigate('ToBuyListScreen')
+    this.props.navigation.navigate('ToBuyList')
   };
 
   render() {

@@ -49,7 +49,7 @@ export default class ToBuyListScreen extends React.Component<ToBuyListScreenProp
   };
 
   onGoToAuthPressed = () => {
-    this.props.navigation.navigate('AuthScreen')
+    this.props.navigation.navigate('Auth')
   };
 
   render() {

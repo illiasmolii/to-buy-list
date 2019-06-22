@@ -1,11 +1,11 @@
 import React from 'react';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Auth from "./src/sreens/Auth";
-import ToBuyList from "./src/sreens/ToBuyList";
+import AuthScreen from "./src/sreens/AuthScreen";
+import ToBuyListScreen from "./src/sreens/ToBuyListScreen";
 
 const Router = createStackNavigator({
-  Auth: {screen: Auth},
-  ToBuyList: {screen: ToBuyList }
+  ToBuyList: {screen: ToBuyListScreen },
+  Auth: {screen: AuthScreen}
 });
 
 const App = createAppContainer(Router);

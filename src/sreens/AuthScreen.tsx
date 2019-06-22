@@ -1,14 +1,14 @@
 import * as React from "react";
 import { View, Text, Button } from "react-native";
 
-interface AuthProps {
-  navigation: { navigate }
+interface AuthScreenProps {
+  navigation: { navigate: (string) => void }
 }
 
-export default class Auth extends React.Component<AuthProps> {
+export default class AuthScreen extends React.Component<AuthScreenProps> {
 
   onGoToListPressed = () => {
-    this.props.navigation.navigate('ToBuyList')
+    this.props.navigation.navigate('ToBuyListScreen')
   };
 
   render() {

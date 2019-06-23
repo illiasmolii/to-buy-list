@@ -39,8 +39,12 @@ export default class ToBuyList extends React.Component<ToBuyListProps> {
                    newToBuy={newToBuy}
                    onSubmit={onAddNew}/>}
       {!isAddingNew
-      && <Button title={"Add new"}
-                 onPress={onAddNewChange}/>}
+      && <View style={style.addNewButtonContainer}>
+        <View style={style.addNewButton}>
+          <Button title={"Add new"} onPress={onAddNewChange}/>
+        </View>
+
+      </View>}
     </View>
   }
 }
@@ -48,5 +52,15 @@ export default class ToBuyList extends React.Component<ToBuyListProps> {
 const style = StyleSheet.create({
   container: {
     marginBottom: 5
+  },
+  addNewButtonContainer: {
+    marginTop: 5,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  addNewButton: {
+    flex: 1,
+    width: 100
   }
 });

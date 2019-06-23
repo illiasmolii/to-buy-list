@@ -9,13 +9,20 @@ interface ToBuyListScreenProps {
 }
 
 interface ToBuyListScreenState {
-  toBuys: ToBuy[]
+  toBuys: ToBuy[],
+  newToBuy: ToBuy,
+  isAddingNew: boolean
 }
+const getInitialNewToBuy = (): ToBuy => {
+  return {id: new Date().getUTCMilliseconds(), name: "", isBought: false}
+};
 
 export default class ToBuyListScreen extends React.Component<ToBuyListScreenProps, ToBuyListScreenState> {
 
   state = {
-    toBuys: new Array<ToBuy>()
+    toBuys: new Array<ToBuy>(),
+    newToBuy: getInitialNewToBuy(),
+    isAddingNew: false
   };
 
   componentDidMount(): void {
@@ -32,7 +39,7 @@ export default class ToBuyListScreen extends React.Component<ToBuyListScreenProp
       .then(() => this.fetchToBuys());
   };
 
-  onBoughtChanged = (id: number): void => {
+  handleBoughtChanged = (id: number): void => {
     const newToBuys = this.state.toBuys.map(toBuy => {
       if (toBuy.id === id) {
         return {...toBuy, isBought: !toBuy.isBought};
@@ -43,22 +50,44 @@ export default class ToBuyListScreen extends React.Component<ToBuyListScreenProp
     this.updateToBuys(newToBuys);
   };
 
-  onRemoved = (id: number): void => {
+  handleToBuyRemoved = (id: number): void => {
     const newToBuys = this.state.toBuys.filter(toBuy => toBuy.id !== id);
     this.updateToBuys(newToBuys);
   };
 
-  onGoToAuthPressed = () => {
+  handleAddNewChange = () => {
+    this.setState((prev) => {
+      return {isAddingNew: !prev.isAddingNew}
+    });
+  };
+
+  handleNewToBuyChange = (newToBuy: ToBuy) => {
+    this.setState({newToBuy});
+  };
+
+  handleAddNew = () => {
+    const newToBuys = this.state.toBuys.slice().concat(this.state.newToBuy);
+    this.setState({isAddingNew: false, newToBuy: getInitialNewToBuy()});
+    this.updateToBuys(newToBuys);
+  };
+
+  handleGoToAuthPressed = () => {
     this.props.navigation.navigate('Auth')
   };
 
   render() {
+    const {toBuys, isAddingNew, newToBuy} = this.state;
     return <View>
-      <ToBuyList toBuys={this.state.toBuys}
-                 onBoughtChange={this.onBoughtChanged}
-                 onRemove={this.onRemoved}
+      <ToBuyList toBuys={toBuys}
+                 onBoughtChange={this.handleBoughtChanged}
+                 onRemove={this.handleToBuyRemoved}
+                 isAddingNew={isAddingNew}
+                 newToBuy={newToBuy}
+                 onAddNewChange={this.handleAddNewChange}
+                 onNewToBuyChange={this.handleNewToBuyChange}
+                 onAddNew={this.handleAddNew}
       />
-      <Button title="Go to auth" onPress={this.onGoToAuthPressed}/>
+      <Button title="Go to auth" onPress={this.handleGoToAuthPressed}/>
     </View>
   }
 }

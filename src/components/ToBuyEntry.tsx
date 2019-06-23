@@ -28,15 +28,17 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "flex-start"
+    marginTop: 5
   },
   switch: {
-    flex: 1
+    flex: 2,
   },
   name: {
-    flex: 3
+    flex: 8
   },
-  remove: {
-    flex: 1
+  controls: {
+    flex: 2,
+    width: 7,
+    alignItems: "flex-start"
   }
 });
